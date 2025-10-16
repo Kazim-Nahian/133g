@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Advanced Secure Links</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    margin: 0; padding: 0;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh;
+    color: #333;
+  }
+  .container {
+    background: #fff;
+    padding: 30px 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    max-width: 420px;
+    width: 95%;
+    text-align: center;
+  }
+  h2 {
+    margin-bottom: 20px;
+    color: #203a43;
+  }
+  .input-group {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  input[type="password"] {
+    width: 100%;
+    padding: 14px 50px 14px 15px;
+    font-size: 18px;
+    border-radius: 12px;
+    border: 1.8px solid #ccc;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  input[type="password"]:focus {
+    border-color: #0077cc;
+  }
+  .eye {
+    position: absolute;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+    color: #0077cc;
+  }
+  .clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 22px;
+    color: #cc0000;
+    user-select: none;
+  }
+  button {
+    margin-top: 18px;
+    background-color: #203a43;
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+  button:hover:not(:disabled) {
+    background-color: #005a87;
+  }
+  button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+  #message {
+    margin-top: 22px;
+    font-size: 20px;
+    min-height: 26px;
+  }
+  .success {
+    color: green;
+  }
+  .error {
+    color: red;
+  }
+  .links {
+    margin-top: 32px;
+    display: none;
+    text-align: left;
+  }
+  .links h3 {
+    color: #203a43;
+    margin-bottom: 15px;
+  }
+  .links a {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    color: #0077cc;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 18px;
+    border: 2px solid #0077cc;
+    border-radius: 14px;
+    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .links a:hover {
+    background-color: #0077cc;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0,119,204,0.6);
+  }
+  .links a span.icon {
+    margin-right: 16px;
+    font-size: 24px;
+  }
+  /* Tooltip styling */
+  .links a .tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 5px 10px;
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 14px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .links a:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container {
+      max-width: 100%;
+      padding: 20px 20px;
+    }
+    .links a {
+      font-size: 15px;
+      padding: 12px 14px;
+    }
+    .links a span.icon {
+      font-size: 20px;
+      margin-right: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>🔒 Enter Password</h2>
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Enter password" autocomplete="off" />
+    <span class="eye" onclick="togglePassword()" title="Show/Hide Password">👁️</span>
+    <span class="clear-btn" onclick="clearPassword()" title="Clear Input">❌</span>
+  </div>
+  <button id="unlockBtn" onclick="checkPassword()">Unlock</button>
+  <div id="message"></div>
+
+  <div class="links" id="linkSection">
+    <h3>🔗 Useful Links:</h3>
+    <a href="https://example.com/1" target="_blank">
+      <span class="icon">📘</span> Link 1
+      <span class="tooltip">Description for Link 1</span>
+    </a>
+    <a href="https://example.com/2" target="_blank">
+      <span class="icon">📘</span> Link 2
+      <span class="tooltip">Description for Link 2</span>
+    </a>
+    <a href="https://example.com/3" target="_blank">
+      <span class="icon">📘</span> Link 3
+      <span class="tooltip">Description for Link 3</span>
+    </a>
+    <a href="https://example.com/4" target="_blank">
+      <span class="icon">📘</span> Link 4
+      <span class="tooltip">Description for Link 4</span>
+    </a>
+    <a href="https://mega.nz/folder/6150nCCI#4rg2jf254ILxvxzoT8f4DQ" target="_blank">
+      <span class="icon">📘</span> Link 5
+      <span class="tooltip">Description for Link 5</span>
+    </a>
+    <a href="https://example.com/6" target="_blank">
+      <span class="icon">📘</span> Link 6
+      <span class="tooltip">Description for Link 6</span>
+    </a>
+    <a href="https://example.com/7" target="_blank">
+      <span class="icon">📘</span> Link 7
+      <span class="tooltip">Description for Link 7</span>
+    </a>
+    <a href="https://example.com/8" target="_blank">
+      <span class="icon">📘</span> Link 8
+      <span class="tooltip">Description for Link 8</span>
+    </a>
+    <a href="https://example.com/9" target="_blank">
+      <span class="icon">📘</span> Link 9
+      <span class="tooltip">Description for Link 9</span>
+    </a>
+    <a href="https://example.com/10" target="_blank">
+      <span class="icon">📘</span> Link 10
+      <span class="tooltip">Description for Link 10</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  const correctPassword = "quotekn"; // Change password here
+  let attempts = 0;
+  const maxAttempts = 3;
+  let lockTimeout;
+
+  const passwordInput = document.getElementById("password");
+  const message = document.getElementById("message");
+  const links = document.getElementById("linkSection");
+  const unlockBtn = document.getElementById("unlockBtn");
+
+  // Check password function
+  function checkPassword() {
+    const input = passwordInput.value.trim();
+
+    if (input === correctPassword) {
+      message.textContent = "🎉 Welcome Kazim Vaiya!";
+      message.className = "success";
+      links.style.display = "block";
+      unlockBtn.disabled = true;
+      passwordInput.disabled = true;
+      clearTimeout(lockTimeout);
+    } else {
+      attempts++;
+      const attemptsLeft = maxAttempts - attempts;
+      if (attemptsLeft > 0) {
+        message.textContent = `❌ Wrong password. Attempts left: ${attemptsLeft}`;
+        message.className = "error";
+      } else {
+        message.textContent = "⛔ Too many failed attempts. Locked for 30 seconds.";
+        message.className = "error";
+        lockInput(30);
+      }
+      links.style.display = "none";
+    }
+  }
+
+  // Lock input for n seconds
+  function lockInput(seconds) {
+    passwordInput.disabled = true;
+    unlockBtn.disabled = true;
+
+    let timeLeft = seconds;
+    const interval = setInterval(() => {
+      message.textContent = `⛔ Locked! Try again in ${timeLeft} second${timeLeft > 1 ? 's' : ''}.`;
+      timeLeft--;
+
+      if (timeLeft < 0) {
+        clearInterval(interval);
+        message.textContent = "";
+        passwordInput.disabled = false;
+        unlockBtn.disabled = false;
+        attempts = 0;
+        passwordInput.value = "";
+        passwordInput.focus();
+      }
+    }, 1000);
+  }
+
+  // Toggle password visibility
+  function togglePassword() {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  }
+
+  // Clear password input
+  function clearPassword() {
+    passwordInput.value = "";
+    message.textContent = "";
+    passwordInput.focus();
+  }
+
+  // Submit on Enter key
+  passwordInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!unlockBtn.disabled) {
+        checkPassword();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
