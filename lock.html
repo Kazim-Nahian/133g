@@ -1,309 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Advanced Secure Links</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #141e30, #243b55);
-    margin: 0; padding: 0;
-    display: flex; justify-content: center; align-items: center;
-    height: 100vh;
-    color: #333;
-  }
-  .container {
-    background: #fff;
-    padding: 30px 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.35);
-    max-width: 420px;
-    width: 95%;
-    text-align: center;
-  }
-  h2 {
-    margin-bottom: 20px;
-    color: #203a43;
-  }
-  .input-group {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
-  input[type="password"] {
-    width: 100%;
-    padding: 14px 50px 14px 15px;
-    font-size: 18px;
-    border-radius: 12px;
-    border: 1.8px solid #ccc;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  input[type="password"]:focus {
-    border-color: #0077cc;
-  }
-  .eye {
-    position: absolute;
-    right: 45px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 22px;
-    user-select: none;
-    color: #0077cc;
-  }
-  .clear-btn {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 22px;
-    color: #cc0000;
-    user-select: none;
-  }
-  button {
-    margin-top: 18px;
-    background-color: #203a43;
-    color: #fff;
-    padding: 14px 28px;
-    font-size: 18px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%;
-  }
-  button:hover:not(:disabled) {
-    background-color: #005a87;
-  }
-  button:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-  }
-  #message {
-    margin-top: 22px;
-    font-size: 20px;
-    min-height: 26px;
-  }
-  .success {
-    color: green;
-  }
-  .error {
-    color: red;
-  }
-  .links {
-    margin-top: 32px;
-    display: none;
-    text-align: left;
-  }
-  .links h3 {
-    color: #203a43;
-    margin-bottom: 15px;
-  }
-  .links a {
-    display: flex;
-    align-items: center;
-    margin-bottom: 14px;
-    color: #0077cc;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 14px 18px;
-    border: 2px solid #0077cc;
-    border-radius: 14px;
-    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.3s ease;
-    position: relative;
-  }
-  .links a:hover {
-    background-color: #0077cc;
-    color: #fff;
-    box-shadow: 0 4px 12px rgba(0,119,204,0.6);
-  }
-  .links a span.icon {
-    margin-right: 16px;
-    font-size: 24px;
-  }
-  /* Tooltip styling */
-  .links a .tooltip {
-    visibility: hidden;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 8px;
-    padding: 5px 10px;
-    position: absolute;
-    left: 110%;
-    top: 50%;
-    transform: translateY(-50%);
-    white-space: nowrap;
-    font-size: 14px;
-    z-index: 100;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .links a:hover .tooltip {
-    visibility: visible;
-    opacity: 1;
-  }
-  /* Responsive */
-  @media (max-width: 480px) {
-    .container {
-      max-width: 100%;
-      padding: 20px 20px;
-    }
-    .links a {
-      font-size: 15px;
-      padding: 12px 14px;
-    }
-    .links a span.icon {
-      font-size: 20px;
-      margin-right: 12px;
-    }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সালাহ ড্যাশবোর্ড | ৩০ দিনের চ্যালেঞ্জ</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #091214;
+            --card: rgba(255, 255, 255, 0.07);
+            --gold: #ceac41;
+            --emerald: #10b981;
+            --red: #ef4444;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 30px 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .date-header {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .day-count {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            margin-bottom: 25px;
+        }
+
+        .prayer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .prayer-card {
+            background: rgba(255,255,255,0.03);
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .prayer-card.done {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+        }
+
+        .btn-check {
+            background: var(--emerald);
+            border: none;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .btn-check:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        /* Chart Area */
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+        }
+
+        #nextDayBtn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            background: var(--gold);
+            color: #000;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0.5;
+        }
+
+        #nextDayBtn.unlocked {
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(206, 172, 65, 0.4);
+        }
+
+        /* Toast Message */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            background: var(--emerald);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp { from { transform: translateY(100px); } to { transform: translateY(0); } }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <h2>🔒 Enter Password</h2>
-  <div class="input-group">
-    <input type="password" id="password" placeholder="Enter password" autocomplete="off" />
-    <span class="eye" onclick="togglePassword()" title="Show/Hide Password">👁️</span>
-    <span class="clear-btn" onclick="clearPassword()" title="Clear Input">❌</span>
-  </div>
-  <button id="unlockBtn" onclick="checkPassword()">Unlock</button>
-  <div id="message"></div>
+<div class="dashboard">
+    <div class="date-header" id="currentDate">তারিখ লোড হচ্ছে...</div>
+    <div class="day-count" id="dayDisplay">দিন: ১/৩০</div>
 
-  <div class="links" id="linkSection">
-    <h3>🔗 Useful Links:</h3>
-    <a href="https://example.com/1" target="_blank">
-      <span class="icon">📘</span> Link 1
-      <span class="tooltip">Description for Link 1</span>
-    </a>
-    <a href="https://example.com/2" target="_blank">
-      <span class="icon">📘</span> Link 2
-      <span class="tooltip">Description for Link 2</span>
-    </a>
-    <a href="https://example.com/3" target="_blank">
-      <span class="icon">📘</span> Link 3
-      <span class="tooltip">Description for Link 3</span>
-    </a>
-    <a href="https://example.com/4" target="_blank">
-      <span class="icon">📘</span> Link 4
-      <span class="tooltip">Description for Link 4</span>
-    </a>
-    <a href="https://mega.nz/folder/6150nCCI#4rg2jf254ILxvxzoT8f4DQ" target="_blank">
-      <span class="icon">📘</span> Link 5
-      <span class="tooltip">Description for Link 5</span>
-    </a>
-    <a href="https://example.com/6" target="_blank">
-      <span class="icon">📘</span> Link 6
-      <span class="tooltip">Description for Link 6</span>
-    </a>
-    <a href="https://example.com/7" target="_blank">
-      <span class="icon">📘</span> Link 7
-      <span class="tooltip">Description for Link 7</span>
-    </a>
-    <a href="https://example.com/8" target="_blank">
-      <span class="icon">📘</span> Link 8
-      <span class="tooltip">Description for Link 8</span>
-    </a>
-    <a href="https://example.com/9" target="_blank">
-      <span class="icon">📘</span> Link 9
-      <span class="tooltip">Description for Link 9</span>
-    </a>
-    <a href="https://example.com/10" target="_blank">
-      <span class="icon">📘</span> Link 10
-      <span class="tooltip">Description for Link 10</span>
-    </a>
-  </div>
+    <div class="prayer-list" id="prayerList">
+        </div>
+
+    <button id="nextDayBtn" onclick="moveToNextDay()" disabled>পরবর্তী দিন (লকড)</button>
+
+    <div class="chart-container">
+        <h3 style="font-size: 1rem; margin-bottom: 15px;">সামগ্রিক রিপোর্ট (৩০ দিন)</h3>
+        <canvas id="myChart"></canvas>
+    </div>
 </div>
 
+<div id="toast">আলহামদুলিল্লাহ! আল্লাহ কবুল করুন।</div>
+
 <script>
-  const correctPassword = "quotekn"; // Change password here
-  let attempts = 0;
-  const maxAttempts = 3;
-  let lockTimeout;
+    const prayers = ["ফজর", "যোহর", "আসর", "মাগরিব", "এশা"];
+    let db = JSON.parse(localStorage.getItem('namaz_pro_db')) || {
+        currentDay: 1,
+        history: [], // stores total counts
+        todayStatus: [false, false, false, false, false]
+    };
 
-  const passwordInput = document.getElementById("password");
-  const message = document.getElementById("message");
-  const links = document.getElementById("linkSection");
-  const unlockBtn = document.getElementById("unlockBtn");
+    const bNum = (n) => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
 
-  // Check password function
-  function checkPassword() {
-    const input = passwordInput.value.trim();
-
-    if (input === correctPassword) {
-      message.textContent = "🎉 Welcome Kazim Vaiya!";
-      message.className = "success";
-      links.style.display = "block";
-      unlockBtn.disabled = true;
-      passwordInput.disabled = true;
-      clearTimeout(lockTimeout);
-    } else {
-      attempts++;
-      const attemptsLeft = maxAttempts - attempts;
-      if (attemptsLeft > 0) {
-        message.textContent = `❌ Wrong password. Attempts left: ${attemptsLeft}`;
-        message.className = "error";
-      } else {
-        message.textContent = "⛔ Too many failed attempts. Locked for 30 seconds.";
-        message.className = "error";
-        lockInput(30);
-      }
-      links.style.display = "none";
+    function init() {
+        renderPrayers();
+        updateStats();
+        showDate();
     }
-  }
 
-  // Lock input for n seconds
-  function lockInput(seconds) {
-    passwordInput.disabled = true;
-    unlockBtn.disabled = true;
-
-    let timeLeft = seconds;
-    const interval = setInterval(() => {
-      message.textContent = `⛔ Locked! Try again in ${timeLeft} second${timeLeft > 1 ? 's' : ''}.`;
-      timeLeft--;
-
-      if (timeLeft < 0) {
-        clearInterval(interval);
-        message.textContent = "";
-        passwordInput.disabled = false;
-        unlockBtn.disabled = false;
-        attempts = 0;
-        passwordInput.value = "";
-        passwordInput.focus();
-      }
-    }, 1000);
-  }
-
-  // Toggle password visibility
-  function togglePassword() {
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-    } else {
-      passwordInput.type = "password";
+    function showDate() {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('currentDate').innerText = new Date().toLocaleDateString('bn-BD', options);
+        document.getElementById('dayDisplay').innerText = `চ্যালেঞ্জের দিন: ${bNum(db.currentDay)} / ৩০`;
     }
-  }
 
-  // Clear password input
-  function clearPassword() {
-    passwordInput.value = "";
-    message.textContent = "";
-    passwordInput.focus();
-  }
+    function renderPrayers() {
+        const container = document.getElementById('prayerList');
+        container.innerHTML = '';
+        
+        prayers.forEach((p, i) => {
+            const isDone = db.todayStatus[i];
+            container.innerHTML += `
+                <div class="prayer-card ${isDone ? 'done' : ''}" onclick="toggleNamaz(${i})">
+                    <span class="prayer-name">${p}</span>
+                    <button class="btn-check" ${isDone ? 'disabled' : ''}>
+                        ${isDone ? 'সম্পন্ন' : 'আদায় করুন'}
+                    </button>
+                </div>
+            `;
+        });
 
-  // Submit on Enter key
-  passwordInput.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      if (!unlockBtn.disabled) {
-        checkPassword();
-      }
+        checkDayUnlock();
     }
-  });
+
+    function toggleNamaz(index) {
+        if (db.todayStatus[index]) return;
+        
+        db.todayStatus[index] = true;
+        save();
+        renderPrayers();
+        showToast();
+        updateStats();
+    }
+
+    function showToast() {
+        const t = document.getElementById('toast');
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 2500);
+    }
+
+    function checkDayUnlock() {
+        const allDone = db.todayStatus.every(s => s === true);
+        const btn = document.getElementById('nextDayBtn');
+        if (allDone) {
+            btn.disabled = false;
+            btn.classList.add('unlocked');
+            btn.innerText = "পরবর্তী দিনে যান";
+        } else {
+            btn.disabled = true;
+            btn.classList.remove('unlocked');
+            btn.innerText = "৫ ওয়াক্ত পূর্ণ করুন (লকড)";
+        }
+    }
+
+    function moveToNextDay() {
+        if (db.currentDay >= 30) {
+            alert("অভিনন্দন! আপনি ৩০ দিনের চ্যালেঞ্জ পূর্ণ করেছেন।");
+            return;
+        }
+        
+        // Save today's result to history
+        db.history.push([...db.todayStatus]);
+        db.currentDay++;
+        db.todayStatus = [false, false, false, false, false];
+        
+        save();
+        init();
+        alert("মাশাআল্লাহ! নতুন দিন শুরু হলো।");
+    }
+
+    function save() {
+        localStorage.setItem('namaz_pro_db', JSON.stringify(db));
+    }
+
+    // Chart logic
+    let myChart;
+    function updateStats() {
+        let totalPrayed = 0;
+        db.history.forEach(day => day.forEach(s => { if(s) totalPrayed++ }));
+        db.todayStatus.forEach(s => { if(s) totalPrayed++ });
+
+        const totalPossible = 30 * 5;
+        const prayedPercent = ((totalPrayed / totalPossible) * 100).toFixed(1);
+        const kazaPercent = (100 - prayedPercent).toFixed(1);
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        
+        if (myChart) myChart.destroy();
+        
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['আদায়', 'বাকি/কাজা'],
+                datasets: [{
+                    data: [totalPrayed, totalPossible - totalPrayed],
+                    backgroundColor: ['#10b981', '#333'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: { labels: { color: '#fff', font: { family: 'Hind Siliguri' } } }
+                }
+            }
+        });
+    }
+
+    init();
 </script>
 
 </body>
